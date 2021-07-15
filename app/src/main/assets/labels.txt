@@ -1,0 +1,6 @@
+apple_fruit
+banana
+grape
+lemon
+orange
+strawberry

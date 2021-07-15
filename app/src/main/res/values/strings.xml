@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">CalorIA</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="password">Senha</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="entrar">Entrar</string>
+    <string name="clear">Limpar</string>
+    <string name="text_create_acount_one">Não tem cadastro ainda,</string>
+    <string name="text_btn_create_acount">crie uma conta, clicando aqui.</string>
+    <string name="user">Usuário</string>
+    <string name="e_mail">E-mail</string>
+    <string name="confirm_password">Confirmar Senha</string>
+    <string name="register">Cadastrar</string>
+    <string name="sem_alimentos">Ops! Seu prato não possui nenhum alimento</string>
+    <string name="add_mean">Adicionar Refeição</string>
+    <!-- Strings used for fragments for navigation -->
+</resources>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "984079375450",
+    "firebase_url": "https://measuring-calories-in-food.firebaseio.com",
+    "project_id": "measuring-calories-in-food",
+    "storage_bucket": "measuring-calories-in-food.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984079375450:android:17502316744bc0cd6b8c63",
+        "android_client_info": {
+          "package_name": "com.framos.caloria"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "984079375450-ni44eonlq475hb1odq66k6p6crphugjl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.framos.caloria",
+            "certificate_hash": "d8bf2ae20cf7a90c73dde49c00db171356f20a20"
+          }
+        },
+        {
+          "client_id": "984079375450-7l0qv79tg91li3ne04qfsim99j600d14.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHpu5A1aFz7Sja3TZsnNba1GNZuWECzbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "984079375450-7l0qv79tg91li3ne04qfsim99j600d14.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
