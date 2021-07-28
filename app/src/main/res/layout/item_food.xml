@@ -6,21 +6,16 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <androidx.appcompat.widget.AppCompatImageView
+
+        <TextView
             android:layout_margin="10dp"
-            android:tint="@color/colorPrimaryDark"
-            android:src="@drawable/outline_restaurant"
-            android:layout_width="40dp"
-            android:layout_height="40dp">
-        </androidx.appcompat.widget.AppCompatImageView>
-        <androidx.appcompat.widget.AppCompatTextView
             android:gravity="center"
             android:textStyle="bold"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
             android:id="@+id/text_item_food"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="banana"
-            android:textSize="20sp"></androidx.appcompat.widget.AppCompatTextView>
+            android:textSize="20sp"></TextView>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

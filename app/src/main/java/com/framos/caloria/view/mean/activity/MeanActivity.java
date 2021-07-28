@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.framos.caloria.R;
 import com.framos.caloria.model.FirebaseObject.FoodTaco;
+import com.framos.caloria.model.Food;
 import com.framos.caloria.model.Mean;
 import com.framos.caloria.view.food.activity.FoodActivity;
 import com.framos.caloria.view.mean.adapter.MeanAdapter;
@@ -42,7 +43,7 @@ public class MeanActivity extends AppCompatActivity {
         mean = new Mean();
       // mean.setListFood(Aplication.foodList);
        if (mean.getListFood()== null){
-           List<FoodTaco> list = new ArrayList<>();
+           List<Food> list = new ArrayList<>();
            mean.setListFood(list);
        }
        if (mean.getListFood() != null && mean.getListFood().isEmpty()){
@@ -59,7 +60,6 @@ public class MeanActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
               callFoodAcitivty();
-
             }
         });
         initAdapter();

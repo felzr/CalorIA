@@ -19,7 +19,9 @@ package com.framos.caloria.view.base;
 import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
@@ -37,25 +39,25 @@ import android.os.Trace;
 import android.util.Size;
 import android.view.Surface;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.framos.caloria.R;
 import com.framos.caloria.api.cnnApi.tensorflow.Classifier;
 import com.framos.caloria.utils.ImageUtils;
+import com.framos.caloria.view.detailFood.view.DetailFoodActivity;
 import com.framos.caloria.view.food.fragment.CameraConnectionFragment;
 import com.framos.caloria.view.food.fragment.LegacyCameraConnectionFragment;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 
 import java.nio.ByteBuffer;
@@ -83,7 +85,6 @@ public abstract class CameraActivity extends AppCompatActivity
   private Runnable imageConverter;
   private LinearLayout bottomSheetLayout;
   private LinearLayout gestureLayout;
-  private BottomSheetBehavior<LinearLayout> sheetBehavior;
   protected TextView recognitionTextView,
       recognition1TextView,
       recognition2TextView,
@@ -99,6 +100,11 @@ public abstract class CameraActivity extends AppCompatActivity
   private ImageView plusImageView, minusImageView;
   private Spinner deviceSpinner;
   private TextView threadsTextView;
+  protected ImageView selectedImage;
+  protected FrameLayout container;
+  protected Button btnNotFood, btnIsFood;
+  protected Classifier.Recognition food;
+  private LinearLayout viewIsFood;
 
   private Classifier.Device device = Classifier.Device.CPU;
   private int numThreads = -1;
@@ -122,55 +128,7 @@ public abstract class CameraActivity extends AppCompatActivity
     deviceSpinner = findViewById(R.id.device_spinner);
     bottomSheetLayout = findViewById(R.id.bottom_sheet_layout);
     gestureLayout = findViewById(R.id.gesture_layout);
-    sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
     bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
-
-    ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
-    vto.addOnGlobalLayoutListener(
-        new ViewTreeObserver.OnGlobalLayoutListener() {
-          @Override
-          public void onGlobalLayout() {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-              gestureLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-            } else {
-              gestureLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
-            //                int width = bottomSheetLayout.getMeasuredWidth();
-            int height = gestureLayout.getMeasuredHeight();
-
-            sheetBehavior.setPeekHeight(height);
-          }
-        });
-    sheetBehavior.setHideable(false);
-
-    sheetBehavior.setBottomSheetCallback(
-        new BottomSheetBehavior.BottomSheetCallback() {
-          @Override
-          public void onStateChanged(@NonNull View bottomSheet, int newState) {
-            switch (newState) {
-              case BottomSheetBehavior.STATE_HIDDEN:
-                break;
-              case BottomSheetBehavior.STATE_EXPANDED:
-                {
-                  bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_down);
-                }
-                break;
-              case BottomSheetBehavior.STATE_COLLAPSED:
-                {
-                  bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_up);
-                }
-                break;
-              case BottomSheetBehavior.STATE_DRAGGING:
-                break;
-              case BottomSheetBehavior.STATE_SETTLING:
-                bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_up);
-                break;
-            }
-          }
-
-          @Override
-          public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
-        });
 
     recognitionTextView = findViewById(R.id.detected_item);
     recognitionValueTextView = findViewById(R.id.detected_item_value);
@@ -179,20 +137,40 @@ public abstract class CameraActivity extends AppCompatActivity
     recognition2TextView = findViewById(R.id.detected_item2);
     recognition2ValueTextView = findViewById(R.id.detected_item2_value);
 
+    viewIsFood = findViewById(R.id.view_is_food);
     frameValueTextView = findViewById(R.id.frame_info);
     cropValueTextView = findViewById(R.id.crop_info);
     cameraResolutionTextView = findViewById(R.id.view_info);
     rotationTextView = findViewById(R.id.rotation_info);
     inferenceTimeTextView = findViewById(R.id.inference_info);
-
+    selectedImage = findViewById(R.id.selected_image);
     deviceSpinner.setOnItemSelectedListener(this);
+    container = findViewById(R.id.container);
 
+    btnNotFood = findViewById(R.id.btn_not_food);
+    btnNotFood.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+       restartThreadCamera();
+      }
+    });
+    btnIsFood = findViewById(R.id.btn_is_food);
+    btnIsFood.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), DetailFoodActivity.class);
+        intent.putExtra("selectedFood",food.getTitle());
+        startActivity(intent);
+        finish();
+      }
+    });
     plusImageView.setOnClickListener(this);
     minusImageView.setOnClickListener(this);
 
     device = Classifier.Device.CPU;
     numThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
   }
+
 
   protected int[] getRgbBytes() {
     imageConverter.run();
@@ -514,22 +492,6 @@ public abstract class CameraActivity extends AppCompatActivity
           recognitionValueTextView.setText(
               String.format("%.2f", (100 * recognition.getConfidence())) + "%");
       }
-
-      Classifier.Recognition recognition1 = results.get(1);
-      if (recognition1 != null) {
-        if (recognition1.getTitle() != null) recognition1TextView.setText(recognition1.getTitle());
-        if (recognition1.getConfidence() != null)
-          recognition1ValueTextView.setText(
-              String.format("%.2f", (100 * recognition1.getConfidence())) + "%");
-      }
-
-      Classifier.Recognition recognition2 = results.get(2);
-      if (recognition2 != null) {
-        if (recognition2.getTitle() != null) recognition2TextView.setText(recognition2.getTitle());
-        if (recognition2.getConfidence() != null)
-          recognition2ValueTextView.setText(
-              String.format("%.2f", (100 * recognition2.getConfidence())) + "%");
-      }
     }
   }
 
@@ -613,6 +575,26 @@ public abstract class CameraActivity extends AppCompatActivity
     if (parent == deviceSpinner) {
       setDevice(Classifier.Device.valueOf(parent.getItemAtPosition(pos).toString()));
     }
+  }
+  public void capturePicture(Bitmap rgbFrameBitmap){
+    container.setVisibility(View.GONE);
+    viewIsFood.setVisibility(View.VISIBLE);
+    selectedImage.setVisibility(View.VISIBLE);
+    selectedImage.setColorFilter(null);
+    selectedImage.setImageBitmap(rgbFrameBitmap);
+  }
+  private void restartThreadCamera() {
+    food= null;
+    viewIsFood.setVisibility(View.GONE);
+    container.setVisibility(View.VISIBLE);
+    selectedImage.setVisibility(View.GONE);
+    Handler handle = new Handler();
+    handle.postDelayed(new Runnable() {
+      @Override
+      public void run() {
+        readyForNextImage();
+      }
+    }, 3000);
   }
 
   @Override

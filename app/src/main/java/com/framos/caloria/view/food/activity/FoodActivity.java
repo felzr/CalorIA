@@ -98,7 +98,7 @@ public class FoodActivity  extends CameraActivity implements ImageReader.OnImage
         rgbFrameBitmap.setPixels(getRgbBytes(), 0, previewWidth, 0, 0, previewWidth, previewHeight);
         final int cropSize = Math.min(previewWidth, previewHeight);
 
-        runInBackground(
+        runOnUiThread(
                 new Runnable() {
                     @Override
                     public void run() {
@@ -107,29 +107,30 @@ public class FoodActivity  extends CameraActivity implements ImageReader.OnImage
                             final List<Classifier.Recognition> results =
                                     classifier.recognizeImage(rgbFrameBitmap, sensorOrientation);
                             lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
-
-                            runOnUiThread(
-                                    new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            showResultsInBottomSheet(results);
-                                            showFrameInfo(previewWidth + "x" + previewHeight);
-                                            showCropInfo(imageSizeX + "x" + imageSizeY);
-                                            showCameraResolution(cropSize + "x" + cropSize);
-                                            showRotationInfo(String.valueOf(sensorOrientation));
-                                            showInference(lastProcessingTimeMs + "ms");
-                                        }
-                                    });
+                            if (100 * results.get(0).getConfidence()>60.0){
+                                food = results.get(0);
+                                runOnUiThread(
+                                        new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                showResultsInBottomSheet(results);
+                                                capturePicture(rgbFrameBitmap);
+                                            }
+                                        });
+                            }else{
+                                readyForNextImage();
+                            }
                         }
-                        readyForNextImage();
+
                     }
+
                 });
     }
+
 
     @Override
     protected void onInferenceConfigurationChanged() {
         if (rgbFrameBitmap == null) {
-            // Defer creation until we're getting camera frames.
             return;
         }
         final Classifier.Device device = getDevice();

@@ -1,6 +1,11 @@
-apple_fruit
-banana
-grape
-lemon
-orange
-strawberry
+Arroz
+Banana
+Batata frita
+Hamburguer
+Laranja
+Limão
+Macarrão
+Mamão
+Morango
+Pão
+Uva

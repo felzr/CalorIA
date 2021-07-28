@@ -32,7 +32,7 @@ public class MeanAdapter extends RecyclerView.Adapter<MeanHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MeanHolder holder, int position) {
-       // holder.itemMeanName.setText(mean.getListFood().get(position).getDescricaoPrincipal());
+        holder.itemMeanName.setText(mean.getListFood().get(position).getDescricao());
     }
 
     @Override

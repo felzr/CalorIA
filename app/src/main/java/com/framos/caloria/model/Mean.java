@@ -5,13 +5,13 @@ import com.framos.caloria.model.FirebaseObject.FoodTaco;
 import java.util.List;
 
 public class Mean {
-    private List<FoodTaco> listFood;
+    private List<Food> listFood;
 
-    public List<FoodTaco> getListFood() {
+    public List<Food> getListFood() {
         return listFood;
     }
 
-    public void setListFood(List<FoodTaco> listFood) {
+    public void setListFood(List<Food> listFood) {
         this.listFood = listFood;
     }
 }
