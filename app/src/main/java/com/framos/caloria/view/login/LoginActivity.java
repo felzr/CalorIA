@@ -14,6 +14,7 @@ import com.framos.caloria.R;
 import com.framos.caloria.controller.UserControler;
 import com.framos.caloria.controller.UserControllerImpl;
 import com.framos.caloria.utils.Permition;
+import com.framos.caloria.view.Aplication;
 import com.framos.caloria.view.mean.activity.MeanActivity;
 import com.framos.caloria.view.register.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -75,6 +76,8 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
+                        Aplication.emailLogado = email;
+
                         callMain();
                         Toast.makeText(LoginActivity.this, "Sucesso ao fazer login!", Toast.LENGTH_LONG).show();
                     } else {

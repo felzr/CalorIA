@@ -1,45 +1,18 @@
 package com.framos.caloria.view.food.activity;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
-import android.hardware.Camera;
 import android.media.ImageReader;
 import android.os.Build;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.SystemClock;
 import android.util.Size;
 import android.util.TypedValue;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.framos.caloria.api.cnnApi.ImageClassifier;
 import com.framos.caloria.R;
 import com.framos.caloria.api.cnnApi.tensorflow.Classifier;
-import com.framos.caloria.controller.FoodController;
-import com.framos.caloria.controller.FoodControllerImpl;
-import com.framos.caloria.model.FirebaseObject.FoodTaco;
-import com.framos.caloria.model.Food;
 import com.framos.caloria.utils.BorderedText;
-import com.framos.caloria.utils.FirebaseObjectConverter;
 import com.framos.caloria.view.base.CameraActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.QuerySnapshot;
+
 
 import java.io.IOException;
 import java.util.List;

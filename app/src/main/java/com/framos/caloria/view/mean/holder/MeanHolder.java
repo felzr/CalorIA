@@ -14,6 +14,6 @@ public class MeanHolder extends RecyclerView.ViewHolder {
 
     public MeanHolder(@NonNull View itemView) {
         super(itemView);
-        itemView = itemView.findViewById(R.id.text_item_mean);
+        itemMeanName = itemView.findViewById(R.id.text_item_mean);
     }
 }

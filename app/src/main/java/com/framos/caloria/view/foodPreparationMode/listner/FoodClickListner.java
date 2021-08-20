@@ -1,4 +1,4 @@
-package com.framos.caloria.view.detailFood.listner;
+package com.framos.caloria.view.foodPreparationMode.listner;
 
 import com.framos.caloria.model.Food;
 

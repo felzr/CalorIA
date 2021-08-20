@@ -1,4 +1,4 @@
-package com.framos.caloria.view.detailFood.adapter;
+package com.framos.caloria.view.foodPreparationMode.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,14 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.selection.FocusDelegate;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.framos.caloria.R;
 import com.framos.caloria.model.Food;
-import com.framos.caloria.view.detailFood.holder.DetailFoodHolder;
-import com.framos.caloria.view.detailFood.listner.FoodClickListner;
-import com.framos.caloria.view.mean.holder.MeanHolder;
+import com.framos.caloria.view.foodPreparationMode.holder.DetailFoodHolder;
+import com.framos.caloria.view.foodPreparationMode.listner.FoodClickListner;
 
 import java.util.List;
 

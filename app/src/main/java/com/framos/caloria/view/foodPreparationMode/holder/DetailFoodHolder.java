@@ -1,10 +1,9 @@
-package com.framos.caloria.view.detailFood.holder;
+package com.framos.caloria.view.foodPreparationMode.holder;
 
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.framos.caloria.R;

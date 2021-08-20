@@ -13,12 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.detailFood.view.DetailFoodActivity"></activity>
-        <activity android:name=".view.splash.SplashAcitivty" />
+        <activity android:name=".view.nutrition.view.NutritionActivity"></activity>
+        <activity android:name=".view.foodPreparationMode.view.FoodPreparationModeActivity" />
+        <activity android:name=".view.food.activity.FoodActivity" />
         <activity android:name=".view.mean.activity.MeanActivity" />
         <activity android:name=".view.register.RegisterActivity" />
         <activity android:name=".view.login.LoginActivity" />
-        <activity android:name=".view.food.activity.FoodActivity">
+        <activity android:name=".view.splash.SplashAcitivty">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

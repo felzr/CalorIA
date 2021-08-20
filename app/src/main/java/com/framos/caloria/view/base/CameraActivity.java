@@ -55,7 +55,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.framos.caloria.R;
 import com.framos.caloria.api.cnnApi.tensorflow.Classifier;
 import com.framos.caloria.utils.ImageUtils;
-import com.framos.caloria.view.detailFood.view.DetailFoodActivity;
+import com.framos.caloria.view.foodPreparationMode.view.FoodPreparationModeActivity;
 import com.framos.caloria.view.food.fragment.CameraConnectionFragment;
 import com.framos.caloria.view.food.fragment.LegacyCameraConnectionFragment;
 
@@ -68,9 +68,7 @@ public abstract class CameraActivity extends AppCompatActivity
         Camera.PreviewCallback,
         View.OnClickListener,
         AdapterView.OnItemSelectedListener {
-
   private static final int PERMISSIONS_REQUEST = 1;
-
   private static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
   protected int previewWidth = 0;
   protected int previewHeight = 0;
@@ -85,17 +83,8 @@ public abstract class CameraActivity extends AppCompatActivity
   private Runnable imageConverter;
   private LinearLayout bottomSheetLayout;
   private LinearLayout gestureLayout;
-  protected TextView recognitionTextView,
-      recognition1TextView,
-      recognition2TextView,
-      recognitionValueTextView,
-      recognition1ValueTextView,
-      recognition2ValueTextView;
-  protected TextView frameValueTextView,
-      cropValueTextView,
-      cameraResolutionTextView,
-      rotationTextView,
-      inferenceTimeTextView;
+  protected TextView recognitionTextView, recognition1TextView, recognition2TextView, recognitionValueTextView, recognition1ValueTextView, recognition2ValueTextView;
+  protected TextView frameValueTextView, cropValueTextView, cameraResolutionTextView, rotationTextView, inferenceTimeTextView;
   protected ImageView bottomSheetArrowImageView;
   private ImageView plusImageView, minusImageView;
   private Spinner deviceSpinner;
@@ -105,9 +94,10 @@ public abstract class CameraActivity extends AppCompatActivity
   protected Button btnNotFood, btnIsFood;
   protected Classifier.Recognition food;
   private LinearLayout viewIsFood;
-
+  private Bitmap sendImage;
   private Classifier.Device device = Classifier.Device.CPU;
   private int numThreads = -1;
+  private byte[] imageToSend;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -158,8 +148,9 @@ public abstract class CameraActivity extends AppCompatActivity
     btnIsFood.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent intent = new Intent(getApplicationContext(), DetailFoodActivity.class);
+        Intent intent = new Intent(getApplicationContext(), FoodPreparationModeActivity.class);
         intent.putExtra("selectedFood",food.getTitle());
+        intent.putExtra("foodImage",imageToSend);
         startActivity(intent);
         finish();
       }
@@ -582,6 +573,8 @@ public abstract class CameraActivity extends AppCompatActivity
     selectedImage.setVisibility(View.VISIBLE);
     selectedImage.setColorFilter(null);
     selectedImage.setImageBitmap(rgbFrameBitmap);
+    sendImage = rgbFrameBitmap;
+    imageToSend = ImageUtils.convertToByteArray(sendImage);
   }
   private void restartThreadCamera() {
     food= null;

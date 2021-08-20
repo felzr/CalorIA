@@ -1,4 +1,4 @@
-package com.framos.caloria.view.detailFood.view;
+package com.framos.caloria.view.foodPreparationMode.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,7 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.framos.caloria.R;
 import com.framos.caloria.controller.FoodController;
@@ -15,38 +19,44 @@ import com.framos.caloria.controller.FoodControllerImpl;
 import com.framos.caloria.model.FirebaseObject.FoodTaco;
 import com.framos.caloria.model.Food;
 import com.framos.caloria.utils.FirebaseObjectConverter;
-import com.framos.caloria.view.base.BaseActivity;
-import com.framos.caloria.view.detailFood.adapter.DetailFoodAdapter;
-import com.framos.caloria.view.detailFood.listner.FoodClickListner;
+import com.framos.caloria.view.foodPreparationMode.adapter.DetailFoodAdapter;
+import com.framos.caloria.view.foodPreparationMode.listner.FoodClickListner;
+import com.framos.caloria.view.nutrition.view.NutritionActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class DetailFoodActivity extends AppCompatActivity {
+public class FoodPreparationModeActivity extends AppCompatActivity {
     private FoodController foodController = new FoodControllerImpl();
     private FirebaseObjectConverter firebaseObjectConverter;
     private RecyclerView.Adapter detailFoodAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView recyclerView;
+    private LinearLayout viewList;
+    private byte[] foodImage;
+    private ImageView img;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_food);
+        setContentView(R.layout.activity_food_preparation_mode);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        viewList = findViewById(R.id.view_list);
         firebaseObjectConverter = new FirebaseObjectConverter();
         recyclerView = findViewById(R.id.recycler_food);
-        findFood(getFoodKey());
+        Intent intent = getIntent();
+        String foodName = intent.getStringExtra("selectedFood");
+        foodImage = intent.getByteArrayExtra("foodImage");
+        img = findViewById(R.id.img_food);
+        img.setImageBitmap(BitmapFactory.decodeByteArray(foodImage, 0, foodImage.length));
+        findFood(foodName);
     }
 
-    String getFoodKey() {
-        Intent intent = getIntent();
-        return intent.getStringExtra("selectedFood");
-    }
 
 
     private void findFood(String value) {
@@ -68,7 +78,7 @@ public class DetailFoodActivity extends AppCompatActivity {
         detailFoodAdapter = new DetailFoodAdapter(listFoods, getApplicationContext(), new FoodClickListner() {
             @Override
             public void click(Food food) {
-                System.out.println(food.getDescricao());
+                initViewFoodDetail(food);
             }
         });
         layoutManager = new LinearLayoutManager(this);
@@ -76,5 +86,13 @@ public class DetailFoodActivity extends AppCompatActivity {
         recyclerView.setAdapter(detailFoodAdapter);
 
 
+    }
+
+    private void initViewFoodDetail(Food food) {
+        Intent intent = new Intent(getApplicationContext(), NutritionActivity.class);
+        intent.putExtra("food", food);
+        intent.putExtra("foodImage",foodImage);
+        startActivity(intent);
+        finish();
     }
 }
