@@ -2,6 +2,7 @@ package com.framos.caloria.view.nutrition.view;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.utils.widget.ImageFilterButton;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -18,12 +19,15 @@ import com.framos.caloria.view.Aplication;
 import com.framos.caloria.view.login.LoginActivity;
 import com.framos.caloria.view.mean.activity.MeanActivity;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textview.MaterialTextView;
 
 public class NutritionActivity extends AppCompatActivity {
     private ImageView img;
     private byte[] foodImage;
-    private TextView txtClasses, txtCaloriasKcal, txtEnergiaKj, txtProteinaG, txtColesterolMg, txtCarboIdratoG;
+    private TextView txtClasses, txtCaloriasKcal, txtEnergiaKj, txtProteinaG, txtColesterolMg, txtCarboIdratoG, textFoodName;
     private MaterialButton btnAddFood;
+    private MaterialTextView title;
+    private ImageFilterButton btnBack;
     FirebaseService firebaseService = new FirebaseServiceImpl();
 
     @Override
@@ -34,9 +38,20 @@ public class NutritionActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        textFoodName = findViewById(R.id.text_food_name);
+        title = findViewById(R.id.title_base_acitivty);
+        title.setText(R.string.food);
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         Intent intent = getIntent();
         Food food = (Food) intent.getSerializableExtra("food");
         foodImage = intent.getByteArrayExtra("foodImage");
+        textFoodName.setText(food.getDescricao());
         img = findViewById(R.id.img_food);
         img.setImageBitmap(BitmapFactory.decodeByteArray(foodImage, 0, foodImage.length));
         txtClasses = findViewById(R.id.txt_classes);

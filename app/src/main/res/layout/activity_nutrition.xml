@@ -52,6 +52,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Laranja"
+                android:id="@+id/text_food_name"
                 android:textColor="@color/colorPrimary"
                 android:textSize="22sp"
                 android:textStyle="bold"></TextView>
@@ -73,6 +74,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:layout_margin="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -80,18 +82,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="15dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Classe"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="22sp"></TextView>
 
                     <TextView
                         android:id="@+id/txt_classes"
@@ -100,6 +92,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="Frutas"
+                        android:textStyle="bold"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="22sp"></TextView>
                 </LinearLayout>
@@ -114,17 +107,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="energiaKcal"
+                        android:gravity="right"
+                        android:text="energiaKcal:"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp"></TextView>
 
                     <TextView
+                        android:layout_marginLeft="10dp"
+                        android:gravity="left"
                         android:id="@+id/txt_calorias_kcal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:text="222"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp"></TextView>
@@ -140,17 +134,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="energiaKJ"
+                        android:gravity="right"
+                        android:text="energiaKJ:"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp"></TextView>
 
                     <TextView
+                        android:layout_marginLeft="10dp"
+                        android:gravity="left"
                         android:id="@+id/txt_energia_kj"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:text="222"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp"></TextView>
@@ -166,8 +161,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="proteinaG"
+                        android:gravity="right"
+                        android:text="proteinaG:"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp"></TextView>
 
@@ -176,7 +171,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="left"
                         android:text="22"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp"></TextView>
@@ -192,8 +188,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="colesterolMg"
+                        android:gravity="right"
+                        android:text="colesterolMg:"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp"></TextView>
 
@@ -202,7 +198,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="left"
                         android:text="100"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp"></TextView>
@@ -218,8 +215,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="carboIdratoG"
+                        android:gravity="right"
+                        android:text="carboIdratoG:"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp"></TextView>
 
@@ -228,7 +225,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="left"
                         android:text="100"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp"></TextView>

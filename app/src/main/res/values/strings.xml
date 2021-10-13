@@ -17,7 +17,10 @@
     <string name="e_mail">E-mail</string>
     <string name="confirm_password">Confirmar Senha</string>
     <string name="register">Cadastrar</string>
-    <string name="sem_alimentos">Ops! Seu prato não possui nenhum alimento</string>
+    <string name="sem_alimentos">Ops! Seu prato não possui nenhum alimento!</string>
     <string name="add_mean">Adicionar Refeição</string>
+    <string name="mean">Refeição</string>
+    <string name="food">Alimento</string>
+    <string name="texto_tipo_alimento">Selecione o alimento e a forma de preparo ou o tipo do alimento</string>
     <!-- Strings used for fragments for navigation -->
 </resources>

@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textStyle="bold"
-            android:text="Selecione o alimento e a forma de preparo"
+            android:text="@string/texto_tipo_alimento"
             android:textColor="@color/colorPrimaryDark"
 
             android:textSize="26sp"></TextView>

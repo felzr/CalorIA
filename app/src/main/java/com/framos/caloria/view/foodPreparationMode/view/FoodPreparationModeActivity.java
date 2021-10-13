@@ -3,6 +3,7 @@ package com.framos.caloria.view.foodPreparationMode.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.utils.widget.ImageFilterButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +25,7 @@ import com.framos.caloria.view.foodPreparationMode.listner.FoodClickListner;
 import com.framos.caloria.view.nutrition.view.NutritionActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -39,6 +41,8 @@ public class FoodPreparationModeActivity extends AppCompatActivity {
     private LinearLayout viewList;
     private byte[] foodImage;
     private ImageView img;
+    private MaterialTextView title;
+    private ImageFilterButton btnBack;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,15 @@ public class FoodPreparationModeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_food_preparation_mode);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        title = findViewById(R.id.title_base_acitivty);
+        title.setText(R.string.food);
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               onBackPressed();
+            }
+        });
         viewList = findViewById(R.id.view_list);
         firebaseObjectConverter = new FirebaseObjectConverter();
         recyclerView = findViewById(R.id.recycler_food);
