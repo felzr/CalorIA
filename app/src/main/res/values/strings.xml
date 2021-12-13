@@ -22,5 +22,6 @@
     <string name="mean">Refeição</string>
     <string name="food">Alimento</string>
     <string name="texto_tipo_alimento">Selecione o alimento e a forma de preparo ou o tipo do alimento</string>
+    <string name="finsh_mean">Finalizar Refeição</string>
     <!-- Strings used for fragments for navigation -->
 </resources>

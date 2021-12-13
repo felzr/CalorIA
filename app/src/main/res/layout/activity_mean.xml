@@ -236,12 +236,22 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp"
             android:textStyle="bold" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_finsh_mean"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/button_style_red"
+        android:text="@string/finsh_mean"
+        android:textStyle="bold"
+        app:icon="@drawable/outline_add_black"
+        app:iconSize="30dp"></com.google.android.material.button.MaterialButton>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_add_mean"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:background="@drawable/button_style"
         android:text="@string/add_mean"
         android:textStyle="bold"
